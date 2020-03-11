@@ -45,12 +45,11 @@ public class ShelfActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_done:
-                doneWithStuff();
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.menu_done) {
+            doneWithStuff();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void doneWithStuff() {
