@@ -27,6 +27,7 @@ public class ShelfActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(Type.SELECTION,dataSource.getProducts());
         adapter.setListener(dataSource::checkProduct);
         adapter.setCheckedItems(dataSource.getCheckedProducts());
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(adapter);
     }
