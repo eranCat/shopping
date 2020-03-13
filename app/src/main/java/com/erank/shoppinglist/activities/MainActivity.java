@@ -2,13 +2,14 @@ package com.erank.shoppinglist.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erank.shoppinglist.adapters.Adapter;
-import com.erank.shoppinglist.models.DataSource;
+import com.erank.shoppinglist.DataSource;
 import com.erank.shoppinglist.R;
 import com.erank.shoppinglist.models.Type;
 
@@ -29,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new Adapter(Type.PREVIEW);
         productsRV.setAdapter(adapter);
 
-        findViewById(R.id.select).setOnClickListener(v -> {
-            ds.clearCart();
+        View selectButton = findViewById(R.id.select);
+        selectButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, ShelfActivity.class);
             startActivityForResult(intent, RC_SELECT);
         });
@@ -40,11 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case RC_SELECT:
-                if (resultCode == RESULT_OK) {
-                    adapter.setList(ds.getSelectedProducts());
-                }
+        if (requestCode == RC_SELECT && resultCode == RESULT_OK) {
+            adapter.setList(ds.getSelectedProducts());
         }
     }
 }

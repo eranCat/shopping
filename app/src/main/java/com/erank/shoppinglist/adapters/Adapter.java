@@ -1,10 +1,12 @@
 package com.erank.shoppinglist.adapters;
 
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.erank.shoppinglist.R;
 import com.erank.shoppinglist.models.Product;
 import com.erank.shoppinglist.models.Type;
 
@@ -15,6 +17,7 @@ public class Adapter extends RecyclerView.Adapter<ProductVH> {
     private Type type;
     private List<Product> products;
     private OnCheckProductListener listener;
+    private boolean[] checkedItems;
 
     public Adapter(Type type, List<Product> products) {
         this.type = type;
@@ -36,7 +39,7 @@ public class Adapter extends RecyclerView.Adapter<ProductVH> {
             case PREVIEW:
                 return new ProductPreviewVH(parent);
             case SELECTION:
-                return new ProductSelectVH(parent, listener);
+                return new ProductSelectVH(parent);
             default:
                 throw new IllegalArgumentException();
         }
@@ -46,7 +49,7 @@ public class Adapter extends RecyclerView.Adapter<ProductVH> {
     @Override
     public void onBindViewHolder(@NonNull ProductVH holder, int position) {
         Product product = products.get(position);
-        holder.fill(product);
+        holder.fill(product, position);
     }
 
     @Override
@@ -57,5 +60,34 @@ public class Adapter extends RecyclerView.Adapter<ProductVH> {
     public void setList(List<Product> products) {
         this.products = products;
         notifyDataSetChanged();
+    }
+
+    public void setCheckedItems(boolean[] checkedItems) {
+        this.checkedItems = checkedItems;
+    }
+
+    class ProductSelectVH extends ProductVH {
+
+        private CheckBox checkBox;
+
+        ProductSelectVH(ViewGroup parent) {
+            super(parent, R.layout.product_check);
+            checkBox = itemView.findViewById(R.id.checkBox);
+        }
+
+        @Override
+        void fill(Product product, int pos) {
+            checkBox.setText(product.name);
+            checkBox.setChecked(checkedItems[pos]);
+            checkBox.setOnCheckedChangeListener((btn, b) -> {
+                if (btn.isPressed()) {
+                    if (listener != null) {
+                        listener.onProductChecked(b, pos);
+                    }
+
+                    checkedItems[pos] = b;
+                }
+            });
+        }
     }
 }

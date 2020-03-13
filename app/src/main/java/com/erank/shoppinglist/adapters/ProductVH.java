@@ -16,5 +16,5 @@ abstract class ProductVH extends RecyclerView.ViewHolder {
                 .inflate(layout, parent, false));
     }
 
-    abstract void fill(Product product);
+    abstract void fill(Product product, int pos);
 }

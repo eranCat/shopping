@@ -3,13 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingStart="8dp">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="name"
-        style="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:fontFamily="casual"
         android:padding="8dp"/>
+
+    <View
+        android:background="#311B92"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </LinearLayout>
