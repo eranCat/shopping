@@ -16,7 +16,7 @@ class ProductPreviewVH extends ProductVH {
     }
 
     @Override
-    void fill(Product product) {
+    void fill(Product product, int pos) {
         name.setText(product.name);
     }
 }
